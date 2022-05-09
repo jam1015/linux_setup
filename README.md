@@ -87,3 +87,44 @@ in .xinitrc put
 
 # set time
 `timedatectl set-local-rtc 1`
+
+# setup github
+```
+yay -S github-cli
+gh auth login
+```
+select `HTTPS` and say `Y`
+
+# Anaconda
+
+```
+pacman -Sy libxau libxi libxss libxtst libxcursor libxcomposite libxdamage libxfixes libxrandr libxrender mesa-libgl  alsa-lib libglvnd
+yay -S anaconda
+source /opt/anaconda/bin/activate root
+conda update conda
+conda update andaconda
+conda deactivate
+```
+
+# Transfer Physical USB contents
+
+```
+fdisk -l
+sudo mount /dev/sdb /mnt/
+sudo rsync --archive --progress /mnt/Documents ~/
+
+```
+
+# set i3 prefix/ date
+
+```
+sudo timedatectl set-timezone 'America/New_York'
+sudo timedatectl set-ntp true
+```
+in mod file
+
+```
+set $mod Mod4
+```
+
+make sure to use `$mod` instead of and explicit writing of `Mod{number}` in the rest of the file. 
