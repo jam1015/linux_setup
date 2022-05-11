@@ -3,23 +3,8 @@ Title: Linux config
 Author: Jordan Mandel
 ---
 
-# Graphics Drivers
-
-consider nvidia-390xx-utils vs nvidia-utils.  Had problems with the 390xx (the older version) running kitty. Have yet to see how this works for games.
-
-# dotfiles
-
-`git clone https://github.com/jam1015/dotfiles` and run the copying script from there.
-
-# Change to zsh
-
-```
-sudo chsh -s /bin/zsh root
-sudo chsh -s /bin/zsh jordan
-```
-`pacman -S gnustep-base` to install `defaults` command I use to set keyboard rate.
-
 # Network Configuration
+## on actual system
 Add to `/etc/sysctl.d/40-ipv6.conf`
 
 add network interfaes from `ip link show`
@@ -36,7 +21,44 @@ then apply with `sysctl -p /etc/sysctl.d/40-ipv6.conf`. I think this changes ker
 
 then in `/etc/ssh/sshd_config` add `AddressFamily inet` to specify ipv4 for ssh.
 
-log onto network with `nmtui`
+log onto network with `nmtui` or `iwctl`
+## on iso
+
+Issue the command `sysctl -w net.ipv6.conf.all.disable_ipv6=1`
+Issue the command `sysctl -w net.ipv6.conf.default.disable_ipv6=1`
+
+or change `/etc/sysctl.conf`
+
+```
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+net.ipv6.conf.lo.disable_ipv6=1
+```
+followed by `sudo sysctl -p`
+
+```
+[iwd]# device list
+[iwd]# station device scan
+[iwd]# station device get-networks
+[iwd]# station device connect SSID
+```
+
+# Graphics Drivers
+
+consider nvidia-390xx-utils vs nvidia-utils.  Had problems with the 390xx (the older version) running kitty. Have yet to see how this works for games.
+
+# dotfiles
+
+`git clone https://github.com/jam1015/dotfiles` and run the copying script from there.
+
+# Change to zsh
+
+```
+sudo chsh -s /bin/zsh root
+sudo chsh -s /bin/zsh jordan
+```
+`pacman -S gnustep-base` to install `defaults` command I use to set keyboard rate.
+
 
 # Yay
 
