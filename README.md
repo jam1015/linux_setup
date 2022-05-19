@@ -69,6 +69,12 @@ for example `sudo pacman -S linux-firmware`
 
 consider nvidia-390xx-utils vs nvidia-utils.  Had problems with the 390xx (the older version) running kitty. Have yet to see how this works for games.
 
+# locale
+uncomment locale from `/etc/locale.gen` probable `en_US.UTF-8`
+then run `locale-gen`
+
+then localectl set-local LANG=en_US.UTF-8
+
 # dotfiles
 
 `git clone https://github.com/jam1015/dotfiles` and run the copying script from there.
@@ -151,6 +157,11 @@ or possibly
 TSUpdate
 ```
 
+for firenvim:
+```
+call firenvim#install(0)
+```
+
 
 # set time
 `timedatectl list-timezones`
@@ -214,3 +225,29 @@ select `HTTPS` and say `Y`
 # install 
 `rofi`
 `firefox-developer-edition`
+
+
+# make swapfile
+
+```
+dd if=/dev/zero of=/swapfile bs=1M count=2048 status=progress
+chmod 600 /swapfile
+mkswap /swapfile
+```
+
+## backup fstab add wap to it
+`cp /etc/fstab /etc/fstab.bak`
+`echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab`
+
+
+# alacritty colorscheme
+
+```
+yay -S alacritty-themes
+```
+
+# xflux
+
+```
+yay -S xflux
+```
